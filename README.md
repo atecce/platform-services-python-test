@@ -4,7 +4,7 @@
 * Create a Customer Rewards Dashboard Application.
 
 # Solution
-This solution has deviated a bit from the instructions given in the _how_ but for the most part not the _what_. `src/svc` contains a Go service which implements all the business requirements for the datastore and `src/ui` contains a Vue app which displays a very simple dashboard.
+This solution has deviated a bit from the instructions given in the _how_ but for the most part not the _what_. `svc` contains a Go service which implements all the business requirements for the datastore and `ui` contains a Vue app which displays a very simple dashboard.
 
 I hope it's okay that I got a little creative with this, and I appreciate the interesting exercise! I had a lot of fun with it. Kimberly mentioned both Go and Vue as technologies you're exploring and that the team you're recruiting for has an opportunity to think about the software architecture from first principles.
 

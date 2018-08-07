@@ -3,17 +3,26 @@
 * Create an algorithm to calculate a user's rewards points.
 * Create a Customer Rewards Dashboard Application.
 
-# Instructions
-* [Fork this repo.](https://help.github.com/articles/fork-a-repo/)
-* Install the [Dependencies](#dependencies) below.
-* Follow the instructions in these 2 projects in the following order:
-    1. [RewardsService](https://github.com/URBN-Interview/platform-services-python-test/tree/master/source/RewardsService)
-    2. [RewardsUI](https://github.com/URBN-Interview/platform-services-python-test/tree/master/source/RewardsUI)
-* Use incremental commits on a story branch to show how you arrived at your solutions.
-* Push your story branch to your fork.
-* [Issue a pull request](https://help.github.com/articles/using-pull-requests/) against the master branch of this repo.
+# Solution
+This solution has deviated a bit from the instructions given in the _how_ but for the most part not the _what_. `src/svc` contains a Go service which implements all the business requirements for the datastore and `src/ui` contains a Vue app which displays a very simple dashboard.
+
+I hope it's okay that I got a little creative with this, and I appreciate the interesting exercise! I had a lot of fun with it. Kimberly mentioned both Go and Vue as technologies you're exploring and that the team you're recruiting for has an opportunity to think about the software architecture from first principles.
+
+She mentioned Monday as a deadline, so there are definitely a few loose ends in particular I'd want to tie up with more time (in particular, getting docker compose to properly orchestrate the `ui` with the `svc`, which I stalled out on, and therefore am simply running on the host). I had a bunch of stuff over the weekend and would totally welcome an extension to clean some of it up, as this is mostly the result of one long hacking session to get a proof of concept up.
+
+Otherwise I again appreciate the opportunity to solve an interesting problem, as it's still primarily the thing that motivates me to work, it's the kind of thing you don't have to pay me for, I'd be doing it anyway.
 
 # Dependencies
-### Docker
-* Install Docker (https://docs.docker.com/engine/installation/)
-* Install Docker Compose (https://docs.docker.com/compose/install/)
+### mongo 
+```sh
+brew install mongo
+brew services start mongo
+```
+### go and dep
+```sh
+brew install dep
+```
+### yarn
+```sh
+brew install yarn
+```

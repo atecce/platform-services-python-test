@@ -1,0 +1,41 @@
+package main
+
+import (
+	"context"
+	"log"
+	"net/http"
+
+	"github.com/gorilla/mux"
+	"github.com/mongodb/mongo-go-driver/mongo"
+)
+
+// global reference
+// fine for this toy example because the web server owns this entire package
+var collection *mongo.Collection
+
+func init() {
+
+	client, err := mongo.NewClient("mongodb://127.0.0.1:27017")
+	if err != nil {
+		log.Fatal("creating client: ", err)
+	}
+	log.Printf("client: %+v\n", client)
+
+	if err := client.Connect(context.TODO()); err != nil {
+		log.Fatal("connecting to client: ", err)
+	}
+
+	collection = client.Database("Rewards").Collection("customers")
+	log.Printf("collection: %+v\n", collection)
+}
+
+func main() {
+
+	r := mux.NewRouter()
+	r.HandleFunc("/order", order)
+	r.HandleFunc("/customers", customers)
+	r.HandleFunc("/customers/{email}", customerByEmail)
+	http.Handle("/", r)
+
+	log.Fatal("listening: ", http.ListenAndServe(":7050", nil))
+}

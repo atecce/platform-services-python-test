@@ -14,7 +14,7 @@ import (
 type customer struct {
 	Email                   string `bson:"_id"` // using email as primary key
 	RewardPoints            float64
-	RewardsTier             string
+	RewardsTier             string // TODO make this an enum for type safety and data usage
 	RewardsTierName         string
 	NextRewardsTier         string
 	NextRewardsTierName     string
@@ -83,7 +83,7 @@ func getCustomer(email string) (*customer, error) {
 
 func createCustomer(tx transaction) {
 
-	// TODO check for valid email?
+	// TODO check for valid email
 
 	cust := customer{
 		Email: tx.Email,

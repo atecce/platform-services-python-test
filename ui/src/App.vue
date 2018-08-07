@@ -2,6 +2,9 @@
   <div id="app">
     <b-table :data="customers" :columns="columns"></b-table>
 
+    <!-- TODO filter by email -->
+
+    <!-- TODO make this prettier -->
     <input v-model="email" placeholder="Email">
     <input v-model="total" placeholder="Total">
     <button @click="order">Order</button>
@@ -73,6 +76,7 @@ export default {
         email: this.email,
         total: parseFloat(this.total)
       }))
+      // TODO refresh on order
     }
   }
 }

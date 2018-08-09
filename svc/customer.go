@@ -5,6 +5,8 @@ import (
 	"encoding/json"
 	"log"
 	"net/http"
+	"net/mail"
+	"strings"
 
 	"github.com/gorilla/mux"
 	"github.com/mongodb/mongo-go-driver/bson"
@@ -64,8 +66,13 @@ func customerByEmail(w http.ResponseWriter, r *http.Request) {
 }
 
 func writeHTTPErr(w http.ResponseWriter, err error) {
+
+	log.Println("writing http status for err:", err)
+
 	if err == topology.ErrServerSelectionTimeout {
 		w.WriteHeader(http.StatusGatewayTimeout)
+	} else if strings.Contains(err.Error(), "mail:") {
+		w.WriteHeader(http.StatusBadRequest)
 	} else {
 		w.WriteHeader(http.StatusInternalServerError)
 	}
@@ -81,20 +88,29 @@ func getCustomer(email string) (*customer, error) {
 	return &cust, nil
 }
 
-func createCustomer(tx transaction) {
+func createCustomer(tx transaction) error {
+
+	email := tx.Email
 
 	// TODO check for valid email
+	_, err := mail.ParseAddress(email)
+	if err != nil {
+		log.Println("creating customer:", err)
+		return err
+	}
 
 	cust := customer{
-		Email: tx.Email,
+		Email: email,
 	}
 	updateCustomer(&cust, tx.Total)
 
 	res, err := collection.InsertOne(context.TODO(), cust)
 	if err != nil {
 		log.Println("creating customer:", err)
+		return err
 	}
 	log.Printf("insert result: %+v\n", res)
+	return nil
 }
 
 func updateCustomer(cust *customer, orderTotal float64) {

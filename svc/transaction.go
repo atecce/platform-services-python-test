@@ -26,10 +26,15 @@ func order(w http.ResponseWriter, r *http.Request) {
 	log.Printf("tx: %+v\n", tx)
 
 	cust, err := getCustomer(tx.Email)
+
+	// TODO gross
 	if err != nil {
 		if err == mongo.ErrNoDocuments {
 			log.Println("customer does not exist. creating")
-			createCustomer(tx)
+			createErr := createCustomer(tx)
+			if createErr != nil {
+				writeHTTPErr(w, createErr)
+			}
 		} else {
 			log.Println("getting customer:", err)
 			writeHTTPErr(w, err)

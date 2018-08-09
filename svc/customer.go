@@ -92,7 +92,6 @@ func createCustomer(tx transaction) error {
 
 	email := tx.Email
 
-	// TODO check for valid email
 	_, err := mail.ParseAddress(email)
 	if err != nil {
 		log.Println("creating customer:", err)

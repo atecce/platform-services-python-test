@@ -16,7 +16,7 @@ import (
 type customer struct {
 	Email                   string `bson:"_id"` // using email as primary key
 	RewardPoints            float64
-	RewardsTier             string // TODO make this an enum for type safety and data usage
+	RewardsTier             string
 	RewardsTierName         string
 	NextRewardsTier         string
 	NextRewardsTierName     string

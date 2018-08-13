@@ -29,6 +29,7 @@ Create RESTful endpoint(s) to calculate, store, and retrieve customer rewards da
 # Setup
 ```sh
 dep ensure
-go build
-./svc
+GOOS=linux GOARCH=386 go build
+docker build -t rewards_svc .
+docker-compose up -d
 ```

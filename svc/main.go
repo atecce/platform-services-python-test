@@ -15,10 +15,7 @@ var collection *mongo.Collection
 
 func init() {
 
-	// TODO investigate how this interacts with a docker service
-	//      seems to be the main problem in containerizing this
-	//      with docker-compose
-	client, err := mongo.NewClient("mongodb://127.0.0.1:27017")
+	client, err := mongo.NewClient("mongodb://mongodb:27017")
 	if err != nil {
 		log.Fatal("creating client: ", err)
 	}
